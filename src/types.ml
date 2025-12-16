@@ -15,14 +15,15 @@ module Lineaire = struct
   type 'a btree =
   | Leaf
   | Node of 'a btree * 'a btree
-and 'a btree_ref = 'a btree ref
 
 type 'a node = {
-  value : 'a btree_ref ;
+  value : 'a btree ref ;
   mutable index : int ;
+  parent : 'a node option ;
 }
 
-type 'a liste_node = {
+type 'a tree= {
+  mutable root : 'a btree ref option ;
   mutable nodes : 'a node array ;
   mutable size : int ;
 }
