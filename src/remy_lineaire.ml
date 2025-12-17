@@ -1,19 +1,46 @@
 open Types.Lineaire
 
+
 let fils_rand(node)=
+  let leaf_ref = ref Leaf in
+  let node_ref = ref node in
+  
   let fils = Random.int 2 in
   match fils with
-  |0->Node(node,Leaf)
-  |1->Node(Leaf,node)
+  |0->(Node(node_ref,leaf_ref)),leaf_ref,node_ref
+  |1->(Node(leaf_ref,node_ref)),leaf_ref,node_ref
   |_ -> failwith "Impossible"
 
 let step_remy (tree)= 
-  match tree.root with
+  let chosen_index = Random.int tree.size in
+  let chosen_node = tree.nodes.(chosen_index) in (*noeud choisi aléatoirement*)
+                                                 
+  let old_node = !(chosen_node) in 
+                                                 
+  let new_node,new_leaf,old_node_ref = fils_rand(old_node) in
+  
+  chosen_node := new_node;
+  
+  tree.nodes.(tree.size)<-old_node_ref;
+  tree.nodes.(tree.size+1)<-new_leaf;
+  tree.size<-tree.size+2;
+  tree
 
 
+let create_tree (n)=
+  let racine= ref Leaf in
+  {
+    nodes=Array.make (2*n+1) racine;
+    size=1;
+  }
 let remy(n)=
-  match n with
-  |0->let new_tree = {root = Some (ref Leaf); nodes = [||]; size = 1} in
-    new_tree
-  |_->let previous_tree = remy(n-1) in
-    step_remy(previous_tree)
+  let tree = create_tree n in
+  let rec remy_rec(aux) =
+    match aux with
+    |0->tree
+    |_-> let _= step_remy tree in remy_rec(aux-1)
+  in remy_rec n
+    
+let tree_to_btree(tree)=
+  !(tree.nodes.(0))
+  

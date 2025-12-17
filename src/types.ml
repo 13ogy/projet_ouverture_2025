@@ -12,19 +12,14 @@ module Lineaire = struct
   (* nouvelle structure de données, 
   on garde une array pour stocker toutes les reférences aux noeuds*)
   
-  type 'a btree =
+type btree =
   | Leaf
-  | Node of 'a btree * 'a btree
+  | Node of  btree_ref * btree_ref 
+and btree_ref = btree ref
 
-type 'a node = {
-  value : 'a btree ref ;
-  mutable index : int ;
-  parent : 'a node option ;
-}
 
-type 'a tree= {
-  mutable root : 'a btree ref option ;
-  mutable nodes : 'a node array ;
+type tree= {
+  nodes : btree_ref array ;
   mutable size : int ;
 }
 end
