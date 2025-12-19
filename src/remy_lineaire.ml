@@ -41,23 +41,8 @@ let remy(n)=
     |_-> let _= step_remy tree in remy_rec(aux-1)
   in remy_rec n
     
+  
 (*test*)
-
-let create_tree (n)=
-  let racine= ref Leaf in
-  {
-    nodes=Array.make (2*n+1) racine;
-    size=1;
-  }
-let remy(n)=
-  let tree = create_tree n in
-  let rec remy_rec(k) =
-    match k with
-    |0->tree
-    |_-> let _= step_remy tree in remy_rec(k-1)
-  in remy_rec n 
-    
-    
 
 type btree_normal =
   |LeafB
