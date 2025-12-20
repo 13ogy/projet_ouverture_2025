@@ -90,7 +90,7 @@ let rec range n =
   |0->[0]
   |n-> n::range (n-1)
      
-let rec maxL list =
+let maxL list =
   match list with
   |[]->failwith "empty list"
   | h :: t -> List.fold_left max h t

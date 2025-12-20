@@ -1,7 +1,8 @@
 (library
  (name projet_arbres_lib)
  (public_name projet_arbres.lib)
- (modules types remy_naive) ; fichiers .ml dans src
+ (modules types remy_naive remy_lineaire)
+ ; fichiers .ml dans src
 )
 
 (executable
