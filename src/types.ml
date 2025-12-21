@@ -1,25 +1,25 @@
 (* src/types.ml *)
 
-module Naive = struct
-  (* type simple pour l'algorithme naïf *) 
+module Common = struct
+  type btree =
+  | Leaf
+  | Node of btree * btree
+end
 
+module Naive = struct
   type 'a btree =
   | Leaf
   | Node of 'a btree * 'a btree
 end
 
 module Lineaire = struct
-  (* nouvelle structure de données, 
-  on garde une array pour stocker toutes les reférences aux noeuds*)
-  
-type btree =
+  type btree =
   | Leaf
-  | Node of  btree_ref * btree_ref 
-and btree_ref = btree ref
+  | Node of btree_ref * btree_ref
+  and btree_ref = btree ref
 
-
-type tree= {
-  nodes : btree_ref array ;
-  mutable size : int ;
-}
+  type tree = {
+    nodes : btree_ref array;  (* tableau de références vers les nœuds à choisir *)
+    mutable size : int;       (* nombre d'entrées actuellement actives *)
+  }
 end

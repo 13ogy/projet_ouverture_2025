@@ -1,7 +1,7 @@
 (library
  (name projet_arbres_lib)
  (public_name projet_arbres.lib)
- (modules types remy_naive remy_lineaire)
+ (modules types remy_naive remy_lineaire metrics dot abr)
  ; fichiers .ml dans src
 )
 
@@ -10,4 +10,11 @@
  (public_name projet_arbres)
  (libraries unix projet_arbres.lib)
  (modules main)
+)
+
+(executable
+ (name experiments)
+ (public_name projet_arbres.experiments)
+ (libraries unix projet_arbres.lib)
+ (modules experiments)
 )

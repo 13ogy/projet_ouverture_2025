@@ -33,3 +33,12 @@ let rec remy (n)=
     let previous_tree = remy(n-1) in
     let k = cpt_node previous_tree in
     step_remy(previous_tree, k)
+
+(* Conversion vers le type commun *)
+let rec to_common t =
+  match t with
+  | Leaf -> Types.Common.Leaf
+  | Node (g, d) ->
+      let cg = to_common g in
+      let cd = to_common d in
+      Types.Common.Node (cg, cd)
