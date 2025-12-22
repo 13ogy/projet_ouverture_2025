@@ -17,12 +17,20 @@ jobs:
           ocaml-compiler: '4.14.1'
           dune-cache: true
 
+      - name: Initialize opam
+        run: opam init --disable-sandboxing --bare --yes
+        shell: bash
+
       - name: Install dune
         run: opam install -y dune
 
+      - name: Set up opam environment
+        run: eval $(opam env)
+        shell: bash
+
       - name: Show versions
         run: |
-          ocaml -version
+          opam exec -- ocaml -version
           opam --version
           opam exec -- dune --version
 
