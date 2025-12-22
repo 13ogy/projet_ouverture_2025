@@ -1,6 +1,7 @@
 open Projet_arbres_lib
 
 module RL = Remy_lineaire
+module ABR = Abr
 module M = Metrics
 module D = Dot
 
@@ -22,9 +23,9 @@ let () =
       (try int_of_string Sys.argv.(1) with _ -> 10)
     else 10
   in
-  (* Génération de l'arbre (Rémy version linéaire) *)
-  let t_lin = RL.remy n in
-  let t_common = RL.to_common t_lin in
+  (* Génération de l'arbre (ABR) *)
+  let t_lin = ABR.abr n in
+  let t_common = ABR.to_common t_lin in
 
   (* Calcul et affichage de métriques *)
   let h = M.height t_common in
@@ -34,7 +35,8 @@ let () =
   let ic = M.internal_count t_common in
   let lc = M.leaf_count t_common in
 
-  Printf.printf "Arbre Rémy (linéaire) avec n = %d noeuds internes\n" n;
+  (*Printf.printf "Arbre Rémy (linéaire) avec n = %d noeuds internes\n" n;*)
+  Printf.printf "ABR avec n = %d noeuds internes\n" n;
   Printf.printf "- hauteur = %d\n" h;
   Printf.printf "- largeur (nœuds internes) = %d\n" w;
   Printf.printf "- profondeur moyenne des feuilles = %.4f\n" avg;
@@ -43,7 +45,7 @@ let () =
 
   (* Export DOT *)
   ensure_dir "graphs";
-  let path = Printf.sprintf "graphs/sample_remy_lineaire_n%d.dot" n in
+  let path = Printf.sprintf "graphs/sample_abrn%d.dot" n in
   D.write_dot path t_common;
   Printf.printf "Export DOT: %s\n" path;
 

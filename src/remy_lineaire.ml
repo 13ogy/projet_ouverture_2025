@@ -1,7 +1,7 @@
 open Types.Lineaire
 
 (*choisir aleatoirement si le noeud devient fils gauche ou fiche droit d'un nouveau noeud*)
-let fils_rand(node)=
+let fils_rand (node)=
   (*les deux sous arbres sont des references d'arbres*)
   let leaf_ref = ref Leaf in
   let node_ref = ref node in
@@ -18,7 +18,7 @@ let step_remy (tree)=
                                                  
   let old_node = !(chosen_node) in 
                     
-  (*on crée un nouveau noeud avec comme fille l'ancien noeud qui a été choisi*)
+  (*on crée un nouveau noeud avec comme fils l'ancien noeud qui a été choisi*)
   let new_node,new_leaf,old_node_ref = fils_rand(old_node) in
   
   (*le nouveau noeud prend la place de l'ancien*)
@@ -41,7 +41,7 @@ let create_tree (n)=
   }
 
 (*fonction principale*)
-let remy(n)=
+let remy (n)=
   let tree = create_tree n in
   let rec remy_rec(aux) =
     match aux with

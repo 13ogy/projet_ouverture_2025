@@ -58,10 +58,10 @@ let () =
   write_csv_header oc;
 
   (* Tailles d'arbres à tester *)
-  let sizes = [10; 50; 100; 200; 500; 1000; 1500; 2000] in
+  let sizes = [10000; 20000; 50000; 100000; 120000; 150000; 175000; 200000] in
 
   (* Nombre de répétitions par taille *)
-  let trials = 20 in
+  let trials = 10 in
 
   (* Boucle principale d'expérimentations *)
   let rec loop_sizes ss =
@@ -71,12 +71,12 @@ let () =
         let rec loop_trials k =
           match k with
           | 0 -> ()
-          | t ->
+          | t -> (*
               (* Rémy naïf *)
               let (t_rn, dt_rn) = time (fun () -> RN.remy n) in
               let c_rn = RN.to_common t_rn in
               metrics_to_csv oc "remy_naif" n (trials - t + 1) c_rn dt_rn;
-
+              *)
               (* Rémy linéaire *)
               let (t_rl, dt_rl) = time (fun () -> RL.remy n) in
               let c_rl = RL.to_common t_rl in
