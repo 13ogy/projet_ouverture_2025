@@ -1,4 +1,4 @@
-Name: OCaml CI
+name: OCaml CI
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: 4.14.1
+          ocaml-compiler: '4.14.1'
           dune-cache: true
 
       - name: Install dune
@@ -24,22 +24,19 @@ jobs:
         run: |
           ocaml -version
           opam --version
-          dune --version
+          opam exec -- dune --version
 
       - name: Build
         run: |
-          eval $(opam env)
-          dune build
+          opam exec -- dune build
 
       - name: Run tests
         run: |
-          eval $(opam env)
-          dune runtest --no-buffer
+          opam exec -- dune runtest --no-buffer
 
       - name: Run experiments (generate CSV)
         run: |
-          eval $(opam env)
-          dune exec src/experiments.exe
+          opam exec -- dune exec src/experiments.exe
 
       - name: Upload artifacts (CSV)
         uses: actions/upload-artifact@v4

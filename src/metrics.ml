@@ -1,11 +1,6 @@
-(* src/metrics.ml *)
 open Types.Common
 
-(*
-  Calcul de métriques sur des arbres binaires "simples" (sans étiquettes).
-*)
-
-(* Hauteur de l'arbre: nombre d'arêtes sur le plus long chemin racine-feuille. *)
+(* Hauteur de l'arbre. *)
 let rec height t =
   match t with
   | Leaf -> 0
@@ -26,8 +21,7 @@ let rec leaf_count t =
   | Leaf -> 1
   | Node (g, d) -> leaf_count g + leaf_count d
 
-(* Largeur maximale de l'arbre, en ne comptant que les nœuds internes
-   (i.e., nombre maximal de Node sur un même niveau). *)
+(* Largeur maximale de l'arbre, en ne comptant que les nœuds internes *)
 let width_internal t =
   (* incrémente un compteur associé à une profondeur "depth" dans une liste d'associations *)
   let rec incr_depth depth acc =

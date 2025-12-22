@@ -64,6 +64,4 @@ let () =
   Printf.printf "Export DOT: %s\n" path;
   *)
 
-  (* Conversion PNG supprimée: utiliser manuellement 'dot -Tpng input.dot -o output.png' si besoin *)
-
   print_endline "Projet initialisé"

@@ -1,4 +1,3 @@
-(* tests/tests.ml *)
 open Projet_arbres_lib
 
 module RN = Remy_naive
@@ -14,6 +13,7 @@ let rec find_repo_root dir =
     let parent = Filename.dirname dir in
     if parent = dir then dir else find_repo_root parent
 
+(* Création d'un répertoire s'il n'existe pas *)
 let ensure_dir path =
   try
     let st = Unix.stat path in
@@ -22,6 +22,7 @@ let ensure_dir path =
   with _ ->
     Unix.mkdir path 0o755
 
+(* Fonction auxilierre pour calculer le temps d'exécution *)
 let time f =
   let t0 = Unix.gettimeofday () in
   let x = f () in
@@ -32,6 +33,7 @@ let time f =
 let write_csv_header oc =
   output_string oc "model,n,height,width_internal,avg_leaf_depth,left_subtree_size,internal_count,leaf_count,gen_time_ms\n"
 
+(* Fonction auxilierre pour l'écriture des statistiques *)
 let write_row oc model n h w avg lsize ic lc dt_ms =
   let line =
     Printf.sprintf "%s,%d,%d,%d,%.6f,%d,%d,%d,%.3f\n"
@@ -52,7 +54,7 @@ let () =
   let oc = open_out stats_path in
   write_csv_header oc;
 
-  (* Tailles testées jusqu'à 1500 *)
+  (* Tailles testées *)
   let sizes = [ 10; 50; 100; 200; 500; 1000; 1500 ] in
 
   let rec loop_sizes ss =

@@ -1,4 +1,3 @@
-(* src/abr.ml *)
 open Types.Lineaire
 
 type abr_tree = {
@@ -10,26 +9,29 @@ type abr_tree = {
 (* Initialise une structure pour construire un arbre ABR de taille n. *)
 let create n =
   let root = ref Leaf in
+  (* on crée le tableau initial de taille fixe *)
   let leaves = Array.make (n + 1) root in
   { root = root; leaves = leaves; lsize = 1 }
 
 (* Une étape de l'algorithme ABR. *)
 let step (t : abr_tree) =
-  (* choix d'une feuille aléatoire*)
+  (* choix d'une feuille aléatoire *)
   let i = Random.int t.lsize in
   let feuille_choisie = t.leaves.(i) in
 
   let l = ref Leaf in
   let r = ref Leaf in
+  (* la feuille choisie devienne un noeud *)
   feuille_choisie := Node (l, r);
 
-  (* on remplace la feuille choisie par l'enfant gauche,
-     et on ajoute le nouvel enfant droit en fin de tableau des feuilles *)
+  (* on remplace la feuille choisie par l'enfant gauche *)
   t.leaves.(i) <- l;
+  (* on ajoute le nouvel enfant droit en fin de tableau des feuilles *)
   t.leaves.(t.lsize) <- r;
+  (* on augmente la fin *)
   t.lsize <- t.lsize + 1
 
-(* Construit un arbre ABR de taille n (n nœuds internes). *)
+(* Construit un arbre ABR de taille n *)
 let abr n =
   let t = create n in
   let rec aux k =
@@ -50,7 +52,7 @@ let to_common (t : abr_tree) =
   in
   aux t.root
 
-(* Construction directe d'un arbre commun via ABR *)
+(* Construction directe d'un arbre commun *)
 let abr_common n =
   let t = abr n in
   to_common t

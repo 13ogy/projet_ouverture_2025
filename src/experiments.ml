@@ -1,5 +1,3 @@
-(* src/experiments.ml *)
-
 open Projet_arbres_lib
 
 module RN = Remy_naive

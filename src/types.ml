@@ -1,5 +1,3 @@
-(* src/types.ml *)
-
 module Common = struct
   type btree =
   | Leaf

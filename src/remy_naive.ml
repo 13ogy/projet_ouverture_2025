@@ -1,4 +1,3 @@
-(* src/remy_naive.ml *)
 open Types.Naive
 
 (* Compte le nombre de nœuds dans l'arbre *)
